@@ -18,20 +18,21 @@ WORKDIR ${dir}
 
 RUN pip install --upgrade pip
 
-RUN   apk update \                                                                                                                                     $
-  &&   apk add ca-certificates wget \                                                                                                                  $
-  &&   update-ca-certificates
+RUN apk update \
+    && apk add ca-certificates wget \
+    && update-ca-certificates
 
 RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${binfile} -P .
 RUN chown -R ${user}:${group} ${dir} \
-        && chmod 755 ${dir}/${binfile}
+    && chmod 755 ${dir}/${binfile}
 
 USER ${user}
 RUN pip install --user -r https://raw.githubusercontent.com/UniversalDevicesInc/Polyglot/unstable-release/requirements.txt
 
-# RUN pip install --user soco
-# RUN git clone https://github.com/Einstein42/sonos-polyglot Polyglot/config/node_servers/sonos-polyglot
-# RUN pip install --user python-nest
-# RUN git clone https://github.com/Einstein42/nest-polyglot Polyglot/config/node_servers/nest-polyglot
+RUN pip install --user soco \
+    && RUN git clone https://github.com/Einstein42/sonos-polyglot Polyglot/config/node_servers/sonos-polyglot
+
+RUN pip install --user python-nest \
+    && RUN git clone https://github.com/Einstein42/nest-polyglot Polyglot/config/node_servers/nest-polyglot
 
 ENTRYPOINT ["$dir/$binfile -v"]
