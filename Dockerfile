@@ -23,7 +23,6 @@ RUN   apk update \                                                              
   &&   update-ca-certificates
 
 RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${binfile} -P .
-COPY startup.sh ${dir}
 RUN chown -R ${user}:${group} ${dir} \
         && chmod 755 ${dir}/${binfile}
 
