@@ -8,7 +8,7 @@ ARG group=$user
 ARG uid=1000
 ARG gid=1000
 
-VOLUME ["$dir", "/var/log/polyglot"]
+VOLUME ["$dir"]
 
 RUN addgroup -g ${gid} ${group} \
     && adduser -h /home/${user} -s /bin/sh -G ${group} -D -u ${uid} ${user}
