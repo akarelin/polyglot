@@ -24,7 +24,7 @@ RUN apk update \
 
 RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${filename}
 RUN chown -R ${user}:${group} ${dir}
-chmod 755 ${filename}
+RUN chmod 755 ${filename}
 
 USER ${user}
 
