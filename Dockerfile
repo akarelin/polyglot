@@ -22,15 +22,17 @@ RUN apk update \
     && apk add ca-certificates wget \
     && update-ca-certificates
 
-RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${filename} -P ${dir}
+RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${filename}
 RUN chown -R ${user}:${group} ${dir}
-RUN chmod 755 ${binfile}
+chmod 755 ${filename}
 
 USER ${user}
+
 RUN pip install --user -r https://raw.githubusercontent.com/UniversalDevicesInc/Polyglot/unstable-release/requirements.txt
-RUN pip install --user soco \
-    && RUN git clone https://github.com/Einstein42/sonos-polyglot Polyglot/config/node_servers/sonos-polyglot
-RUN pip install --user python-nest \
-    && RUN git clone https://github.com/Einstein42/nest-polyglot Polyglot/config/node_servers/nest-polyglot
+
+#RUN pip install --user soco \
+#    && RUN git clone https://github.com/Einstein42/sonos-polyglot Polyglot/config/node_servers/sonos-polyglot
+#RUN pip install --user python-nest \
+#    && RUN git clone https://github.com/Einstein42/nest-polyglot Polyglot/config/node_servers/nest-polyglot
 
 ENTRYPOINT ["$binfile -v"]
