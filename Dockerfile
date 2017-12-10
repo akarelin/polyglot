@@ -2,8 +2,8 @@ FROM jfloff/alpine-python:2.7
 MAINTAINER Alex Karelin <alex@karel.in>
 
 ARG dir=/var/lib/polyglot
-ARG binfile=polyglot.linux.x86_64.pyz
-ARG binpath=$dir/$binfile
+ARG filename=polyglot.linux.x86_64.pyz
+ARG binfile=$dir/$filename
 ARG user=polyglot
 ARG group=$user
 ARG uid=1000
@@ -22,9 +22,9 @@ RUN apk update \
     && apk add ca-certificates wget \
     && update-ca-certificates
 
-RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${binfile} -P ${dir}
+RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${filename} --outputdocument ${binfile}
 RUN chown -R ${user}:${group} ${dir} \
-    && chmod 755 ${binpath}
+    && chmod 755 ${binfile}
 
 USER ${user}
 RUN pip install --user -r https://raw.githubusercontent.com/UniversalDevicesInc/Polyglot/unstable-release/requirements.txt
