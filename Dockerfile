@@ -2,7 +2,6 @@
 FROM jfloff/alpine-python:2.7
 MAINTAINER Alex Karelin <alex@karel.in>
 
-
 VOLUME ["/var/lib/polyglot", "/var/log/polyglot"]
 
 ARG binfile=polyglot.linux.x86_64.pyz
@@ -27,8 +26,7 @@ RUN   apk update \                                                              
 RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${binfile} -P .
 COPY startup.sh ${dir}
 RUN chown -R ${user}:${group} ${dir} \
-        && chmod 755 ${dir}/${binfile} \
-        && chmod 755 ${dir}/startup.sh
+        && chmod 755 ${dir}/${binfile}
 
 USER ${user}
 RUN pip install --user -r https://raw.githubusercontent.com/UniversalDevicesInc/Polyglot/unstable-release/requirements.txt
@@ -38,5 +36,4 @@ RUN git clone https://github.com/Einstein42/sonos-polyglot Polyglot/config/node_
 RUN pip install --user python-nest
 RUN git clone https://github.com/Einstein42/nest-polyglot Polyglot/config/node_servers/nest-polyglot
 
-ENTRYPOINT ["./startup.sh"]
-
+ENTRYPOINT ["$dir/$binfile -v"]
