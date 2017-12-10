@@ -24,7 +24,7 @@ RUN apk update \
 
 RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${binfile} -P ${binpath}
 RUN chown -R ${user}:${group} ${dir} \
-    && chmod 755 ${binfile}
+    && chmod 755 ${binpath}
 
 USER ${user}
 RUN pip install --user -r https://raw.githubusercontent.com/UniversalDevicesInc/Polyglot/unstable-release/requirements.txt
