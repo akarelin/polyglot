@@ -23,8 +23,8 @@ RUN apk update \
     && update-ca-certificates
 
 RUN wget https://github.com/UniversalDevicesInc/Polyglot/raw/unstable-release/bin/${filename} -P ${dir}
-RUN chown -R ${user}:${group} ${dir} \
-    && chmod 755 ${binfile}
+RUN chown -R ${user}:${group} ${dir}
+RUN chmod 755 ${binfile}
 
 USER ${user}
 RUN pip install --user -r https://raw.githubusercontent.com/UniversalDevicesInc/Polyglot/unstable-release/requirements.txt
